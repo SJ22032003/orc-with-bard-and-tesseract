@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container {
+        min-height: 100vh;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .mainContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      label {
+        border-bottom: solid black 2px;
+      }
+
+      #input {
+        margin-top: 20px;
+        padding: 20px 10px;
+        border-radius: 8px;
+        border-style: dashed;
+      }
+
+      button {
+        background-color: orangered;
+        padding: 10px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      button:hover {
+        cursor: pointer;
+      }
+    </style>
+    <title>Bard ORC</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Extract image data using Bard AI</h1>
+      <small
+        >Bard can be better alternative for free usage but accuracy is about
+        65%-75%</small
+      >
+      <small>Make sure to use NodeJS version 18 or above</small>
+      <form
+        action="/extract-img"
+        class="mainContainer"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="file" accept="image/*" id="input" />
+        <button>Extract data</button>
+      </form>
+      <ul>
+        <% function createEJSOutput(response) { %> <% if (typeof response ===
+        'string') { %>
+        <li><%= response %></li>
+        <% } else { %> <% for (let i = 0; i < response.length; i++) { %>
+        <li>
+          <% const head = response[i].question_no ? response[i].question_no :
+          response[i].question; %> <% const answer = response[i].answer ?
+          response[i].answer : "null"; %> <%= `\n${head} => ${answer}` %>
+        </li>
+        <% if (response[i].sub_questions) { %> <%
+        createEJSOutput(response[i].sub_questions); %> <% } %> <% } %> <% } %>
+        <% } %> <% createEJSOutput(data); %>
+      </ul>
+    </div>
+  </body>
+</html>

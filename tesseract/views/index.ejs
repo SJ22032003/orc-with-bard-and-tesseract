@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container {
+        min-height: 100vh;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .mainContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      label {
+        border-bottom: solid black 2px;
+      }
+
+      #input {
+        margin-top: 20px;
+        padding: 20px 10px;
+        border-radius: 8px;
+        border-style: dashed;
+      }
+
+      button {
+        background-color: orangered;
+        padding: 10px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      button:hover {
+        cursor: pointer;
+      }
+    </style>
+    <title>Tesseract ORC</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Extract image data using Tesseract</h1>
+      <small>Tesseract has lot of limitation that will block user to extract usable information for handwritten text and data sanitization</small>
+      <form
+        action="/extract-img-orc"
+        class="mainContainer"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="file" accept="image/*" id="input" />
+        <button>Extract data</button>
+      </form>
+      <% if (typeof data === 'string') { %>
+        <p><%= data %></p>
+      <% } else { %>
+        <ul>
+          <% function createEJSOutput(response) { %> <% for (let i = 0; i <
+          response.length; i++) { %>
+          <li>
+            <% const head = response[i].question %> 
+            <% const answer = response[i].answer ? response[i].answer : "null"; %> 
+            <%= `\n${head} => ${answer}` %>
+          </li>
+          <% if (response[i].subQuestions) { %> <%
+          createEJSOutput(response[i].subQuestions); %> <% } %> <% } %> <% } %>
+          <% createEJSOutput(data); %>
+        </ul>
+      <% } %>
+    </div>
+  </body>
+</html>
