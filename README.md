@@ -48,7 +48,7 @@ Use nvm for node version management.
 1. Clone the repository (if not already cloned):
    ```bash
    git clone https://github.com/SJ22032003/orc-with-bard-and-tesseract.git
-   cd ./orc-with-bard-and-tesseract/tesseract
+   cd ./orc-with-bard-and-tesseract/bard
    ```
 
 2. Install dependencies:
